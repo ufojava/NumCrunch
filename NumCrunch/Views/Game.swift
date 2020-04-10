@@ -45,6 +45,11 @@ struct Game: View {
     @State private var numberOne = ""
     @State private var numberTwo = ""
     
+    //Operator Selector
+    @State private var opratorSelectorMinu = false
+    @State private var operatorSelectorPlus = false
+    @State private var operatorSelectorMultiply = false
+    
     
     var body: some View {
     
@@ -78,10 +83,105 @@ struct Game: View {
                 
                 VStack {
                     
-                    Text("-")
-                    Text("+")
-                    Spacer().frame(height:10)
-                    Text("*")
+                    
+                    //Minus Button
+                    Button(action: {
+                        
+                        self.opratorSelectorMinu.toggle()
+                        
+                        //Check other operators
+                        
+                        if self.operatorSelectorPlus == true {
+                            
+                            self.operatorSelectorPlus.toggle()
+                        }
+                        
+                        if self.operatorSelectorMultiply == true {
+                            
+                            self.operatorSelectorMultiply.toggle()
+                        }
+                        
+                    }) {
+                        
+                        if self.opratorSelectorMinu {
+                        
+                            formatOperator(operatorSymbol: "-")
+                                .background(Color.yellow)
+                        
+                        } else {
+                            
+                            formatOperator(operatorSymbol: "-")
+                        }
+                    }
+                    
+                   
+                    
+                    Spacer().frame(height:7)
+                    
+                    //Plus Button
+                    Button(action: {
+                        
+                        self.operatorSelectorPlus.toggle()
+                        
+                        //Check other operators
+                        if self.opratorSelectorMinu == true {
+                            
+                            self.opratorSelectorMinu.toggle()
+                        }
+                        
+                        if self.operatorSelectorMultiply == true {
+                            
+                            self.operatorSelectorMultiply.toggle()
+                        }
+                        
+                    }) {
+                        
+                        if self.operatorSelectorPlus {
+                        
+                            formatOperator(operatorSymbol: "+")
+                            
+                            .background(Color.yellow)
+                            
+                        } else {
+                            
+                            formatOperator(operatorSymbol: "+")
+                            
+                        }
+                    }
+                    
+                    Spacer().frame(height:7)
+                    
+                    //Multiply Button
+                    Button(action: {
+                        
+                        self.operatorSelectorMultiply.toggle()
+                        
+                        //Check for other operators
+                        if self.opratorSelectorMinu == true {
+                            
+                            self.opratorSelectorMinu.toggle()
+                        }
+                        
+                        if self.operatorSelectorPlus == true {
+                            
+                            self.operatorSelectorPlus.toggle()
+                        }
+                        
+                        
+                    }) {
+                        
+                        if self.operatorSelectorMultiply {
+                            
+                        formatOperator(operatorSymbol: "*")
+                            .background(Color.yellow)
+                        
+                        } else {
+                            
+                            formatOperator(operatorSymbol: "*")
+                        }
+                    }
+                    
+                   
                     }.font(.system(size: 30))
                 
                 Spacer().frame(width:20)
@@ -169,4 +269,22 @@ struct InputModule: View {
         }//Model ZStack
         
     }
+}
+
+
+struct formatOperator: View {
+    
+    var operatorSymbol = ""
+    
+    var body: some View {
+        
+        
+        Text(operatorSymbol)
+            .frame(width:28,height: 28)
+            .font(.system(size: 25))
+            .foregroundColor(Color.black)
+            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 3))
+        
+    }
+    
 }
