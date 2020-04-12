@@ -41,16 +41,33 @@ struct CallGame_Preview: PreviewProvider {
 struct Game: View {
     
     //Random answer, Numbers 1 and 2
-    @State private var questionAnswer = Int.random(in: 10...99)
+    //@State private var questionAnswer = 0
+    @State private var questionAnswer = Int.random(in: 20...99)
+    
+    //Numbers 1 and 2 fields
     @State private var fieldOneNumberOne = ""
     @State private var fieldOneNumberTwo = ""
     
     @State private var fieldTwoNumberOne = ""
     @State private var fieldTwoNumberTwo = ""
     
-    //Textfield State
-    @State private var numberOneState = false
-    @State private var numberTwoState = false
+   //Get numbers 1 and 2 details
+    @State private var getFieldOneNumbers = ""
+    @State private var getFieldTwoNumbers = ""
+    
+    //Converted Numbers to Int
+    @State private var convertNumberOne = 0
+    @State private var convertNumberTwo = 0
+    
+    //Variable to hold added Numbers 1 and 2
+    @State private var totalInputNumbers = 0
+    
+    //Monitor the number state
+    @State private var numberInputComplete = false
+
+    
+    //Number Pad Click Counter
+    @State private var playerClickCounter = 0
     
     //Operator Selector
     @State private var opratorSelectorMinu = false
@@ -59,6 +76,134 @@ struct Game: View {
     
     //Number Input Pad
     @State private var numberPad = ["0","1","2","3","4","5","6","7","8","9"]
+    
+    
+    //Holders Previous and Current random numbers
+    @State private var previousCurrentNumber: [Int] = []
+    @State private var memoryArrayCounter = 0
+    
+    
+    
+   
+    
+    
+    //Calculate total figure
+    func convertStringToInt() {
+        
+        
+        
+        if self.playerClickCounter == 3 && self.fieldTwoNumberTwo != ""{
+            
+            //Convert Number One
+            self.convertNumberOne = Int(getFieldOneNumbers) ?? 0
+            //print(self.convertNumberOne)
+            
+            //Convert Number Two
+            self.convertNumberTwo = Int(getFieldTwoNumbers) ?? 0
+            //print(self.convertNumberTwo)
+            
+        }
+        
+        
+        
+        
+    }//End of convert
+    
+    
+    //Function to calculate user inpus
+    func calculateInput() {
+        
+        
+        //Run convert function
+        convertStringToInt()
+        
+        if self.opratorSelectorMinu {
+            
+            self.totalInputNumbers = self.convertNumberOne - self.convertNumberTwo
+            print(self.totalInputNumbers)
+            
+        } else if self.operatorSelectorPlus {
+            
+            self.totalInputNumbers = self.convertNumberOne + self.convertNumberTwo
+            print(self.totalInputNumbers)
+            
+        } else if self.operatorSelectorMultiply {
+            
+            
+            self.totalInputNumbers = self.convertNumberOne * self.convertNumberTwo
+            print(self.totalInputNumbers)
+            
+            
+            
+        }
+        
+        //Append to Memory Array
+        if self.memoryArrayCounter <= 2 {
+        self.previousCurrentNumber.append(self.questionAnswer)
+        
+            //Add to the counter
+            self.memoryArrayCounter += 1
+            
+        } else if memoryArrayCounter > 2 {
+            
+            self.previousCurrentNumber.removeSubrange(0..<2)
+            
+            self.memoryArrayCounter = 1
+            
+            self.previousCurrentNumber.append(self.questionAnswer)
+            
+            //Add to the counter
+            self.memoryArrayCounter += 1
+            
+           
+            
+           
+        }
+        
+        
+    
+        if previousCurrentNumber.indices.contains(0) && previousCurrentNumber.indices.contains(1) && self.memoryArrayCounter < 3 {
+        
+        print(self.previousCurrentNumber[0])
+        print(self.previousCurrentNumber[1])
+        print(self.memoryArrayCounter)
+            
+        } else {
+            
+            print("No Records found")
+        }
+        
+    }
+    
+    
+    //Calculate Correct answer
+    func correctAnswer() {
+        
+        if previousCurrentNumber.indices.contains(1) {
+        
+        let correctRandomNumber = self.previousCurrentNumber[1]
+            
+            
+            if self.totalInputNumbers == correctRandomNumber {
+                       
+                       print("Correct Number")
+                   } else {
+                       
+                       print("Incorrect Number")
+                   }
+        
+        } else {
+            
+            
+            print("Record not found")
+        }
+        
+        
+       
+        
+        
+        
+    }
     
     
     var body: some View {
@@ -207,7 +352,7 @@ struct Game: View {
                             
                                 
                                 
-                    }//Hstack for Numners
+                    }//Hstack for Numbers
                     
                     
                     
@@ -225,27 +370,126 @@ struct Game: View {
                             //On Tap Gesture
                             .onTapGesture {
                                 
-                                print(self.numberPad[num])
                                 
-                                
-                                self.numberOneState = true
-                                
-                                if self.numberOneState {
+                                //Data Entry for Number 1
+                                if self.playerClickCounter == 0 && self.playerClickCounter <= 4 {
                                     
-                                   // self.numberOne = self.numberPad[num]
-                                }
- 
-                        }
+                                    self.fieldOneNumberOne = self.numberPad[num]
+                                    
+                                    self.playerClickCounter += 1
+                                
+                                //Data Entry for the field two
+                                } else if self.playerClickCounter == 1 && self.playerClickCounter <= 4 {
+                                    
+                                    self.fieldOneNumberTwo = self.numberPad[num]
+                                    
+                                    self.playerClickCounter += 1
+                                    
+                                    //Assign Number 1 digits to state variable
+                                    self.getFieldOneNumbers = self.fieldOneNumberOne + self.fieldOneNumberTwo
+                                
+                                //Data Entry for the Number two field one
+                                } else if self.playerClickCounter == 2 && self.playerClickCounter <= 4 {
+                                    
+                                    self.fieldTwoNumberOne = self.numberPad[num]
+                                    
+                                    self.playerClickCounter += 1
+                                
+                                //Data Entry for the Number two field two
+                                } else if self.playerClickCounter == 3 && self.playerClickCounter <= 4 {
+                                    
+                                    self.fieldTwoNumberTwo = self.numberPad[num]
+                                    
+                                    //Assign Number 2 digits to state variable
+                                    self.getFieldTwoNumbers = self.fieldTwoNumberOne + self.fieldTwoNumberTwo
+                                    
+                                    //Enter state of data inout
+                                    self.numberInputComplete.toggle()
+                                    
+                                }//End if Else Statement
+                                    
+                                    
+           
+                        }//End OnTapGesture
                         
                     }
-            }
+            }//End of NumberPad HStack
                    
+                    
+                    Spacer().frame(height:30)
+                    
+                    HStack {
+                        
+                        
+                        Button(action: {
+                            
+                            self.previousCurrentNumber.append(self.questionAnswer)
+                            self.questionAnswer = Int.random(in: 20...99)
+                            
+                            
+                            
+                        }) {
+                            
+                            Text("Begin Game")
+                                .frame(width:150,height:40)
+                                .background(Color.red)
+                                .foregroundColor(Color.white)
+                                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                            
+                        }
+                    
+                    
+                            Button(action: {
+                                
+                                if self.numberInputComplete {
+                                    
+                                    self.calculateInput()
+                                    
+                                    self.correctAnswer()
+                                    
+                                    
+                                    
+                                    //Reset fields and answer
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                        
+                                        self.fieldOneNumberOne = ""
+                                        self.fieldOneNumberTwo = ""
+                                        self.fieldTwoNumberOne = ""
+                                        self.fieldTwoNumberTwo = ""
+                                        self.questionAnswer = Int.random(in: 20...99)
+                                        
+                                        
+                                        //Reset the Number Pick Counter
+                                        self.playerClickCounter = 0
+                                    
+                          
+                                    }
+                                    
+                                    self.numberInputComplete.toggle()
+                                    
+                                }
+                                
+                                
+                                
+                            }) {
+                                
+                                
+                                Text("Play Numbers").foregroundColor(Color.black)
+                                    .frame(width:130,height:40)
+                                    .background(Color.blue)
+                                    .foregroundColor(Color.white)
+                                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                            }
+                        
+                        
+                        
+                    }
             
                 }//End of VStack
             
             
                 
-        
+                
        
         
            
