@@ -169,11 +169,7 @@ struct Game: View {
                 self.answerMsg = "Correct"
                 self.correctAnswerCounter += 1
                 
-                /*
-                print(self.totalInputNumbers)
-                print(self.previousNumber)
-                print(currentNumber)
-                */
+              
             //Swap Numbers
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     
@@ -188,11 +184,7 @@ struct Game: View {
                 
                 self.answerMsg = "Incorrect"
                 
-                /*
-                print(self.totalInputNumbers)
-                print(self.previousNumber)
-                 print(currentNumber)
-                */
+           
                 //Swap Numbers
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     
@@ -464,7 +456,7 @@ struct Game: View {
                         }) {
                             
                             Text("Begin Game")
-                                .frame(width:150,height:40)
+                                .frame(width:150,height:30)
                                 .background(Color.red)
                                 .foregroundColor(Color.white)
                                 .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
@@ -515,7 +507,7 @@ struct Game: View {
                                 
                                 
                                 Text("Play Numbers").foregroundColor(Color.white)
-                                    .frame(width:130,height:40)
+                                    .frame(width:130,height:30)
                                     .background(Color.blue)
                                     .foregroundColor(Color.white)
                                     .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
@@ -545,22 +537,55 @@ struct Game: View {
                         Spacer().frame(height:30)
                             
                         
-                        Text("Your Answer Is: \(self.answerMsg)")
-                            .frame(width:360,height: 30,alignment: .leading)
+                        HStack {
+                            
+                        Text("Your Answer Is:")
+                            .frame(width:260,height: 30,alignment: .leading)
+                            
+                            InTextField(inText: self.answerMsg)
                         
-                        Text("Correct Answer Count: \(self.correctAnswerCounter) ")
-                            .frame(width:360,height: 30,alignment: .leading)
+                        }
+                        Spacer().frame(height:5)
                         
+                        HStack {
+                            
+                        Text("Correct Answer Count:")
+                            .frame(width:260,height: 30,alignment: .leading)
+                        
+                            InTextField(inText: "\(self.correctAnswerCounter) ")
+                        }
+                        
+                        Spacer().frame(height:5)
+                        HStack {
+                            
                         Text("You Score is:")
-                            .frame(width:360,height: 30,alignment: .leading)
+                            .frame(width:260,height: 30,alignment: .leading)
+                            
+                            InTextField(inText: "Score ")
+                        }
                         
+                        Spacer().frame(height:5)
+                        HStack {
                         Text("Timer:")
-                            .frame(width:360,height: 30,alignment: .leading)
+                            .frame(width:260,height: 30,alignment: .leading)
+                            
+                        InTextField(inText: "Timer ")
+                        }
                         
-                        
-                    }.font(.custom("Chalkboard SE", size: 20))
+                    }.font(.custom("Coutier", size: 20))
                  
-            
+                    Spacer().frame(height:50)
+                    
+                    //Button to Reset Game
+                    Button(action: {}) {
+                        
+                        
+                        Text("Game Reset")
+                            .frame(width:150,height: 30)
+                            .background(Color.black)
+                            .foregroundColor(Color.white)
+                             .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.white,lineWidth: 2))
+                    }
                 }//End of VStack
             
             
@@ -722,4 +747,22 @@ struct formatOperator: View {
         
     }
     
+}
+
+struct InTextField: View {
+    
+    var inText = ""
+    
+    
+    var body: some View {
+        
+        Text(inText)
+            .frame(width:100,height: 30,alignment: .trailing)
+            .background(Color.green)
+            .foregroundColor(Color.white)
+            .overlay(RoundedRectangle(cornerRadius: 3).stroke(Color.black,lineWidth: 2))
+        
+        
+        
+    }
 }
