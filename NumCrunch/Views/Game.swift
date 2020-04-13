@@ -62,6 +62,11 @@ struct Game: View {
     //Variable to hold added Numbers 1 and 2
     @State private var totalInputNumbers = 0
     
+    //Correct Answer Counter an messages
+    @State private var correctAnswerCounter = 0
+    @State private var answerMsg = ""
+   
+    
     //Monitor the number state
     @State private var numberInputComplete = false
 
@@ -82,6 +87,13 @@ struct Game: View {
     //Variable for Previous and Current random numbers
     @State private var previousNumber = 0
     @State private var currentNumber = 0
+    
+    
+    //Game Alerts
+    @State private var showBeginGameAlert = false //Ensure Begin play has been pressed
+    @State private var showPlayNumbersAlert = false // Ensure the numbers are entered before play numbers is pressed
+    @State private var showOperatorSelectionAlert = false //One operator must be selected before selecting digit 3
+    
     
     
     
@@ -143,6 +155,9 @@ struct Game: View {
 //Function to analyse Previous and Current numbers
     func correctIncorrectAnswer() {
         
+        
+        
+        
         if self.numberInputComplete {
             
             if self.totalInputNumbers == self.previousNumber {
@@ -150,11 +165,14 @@ struct Game: View {
                 //Get current numner
                 self.currentNumber = self.questionAnswer
                 
-                print("Correct Answer")
+                self.answerMsg = "Correct"
+                self.correctAnswerCounter += 1
+                
+                /*
                 print(self.totalInputNumbers)
                 print(self.previousNumber)
                 print(currentNumber)
-                
+                */
             //Swap Numbers
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     
@@ -167,11 +185,13 @@ struct Game: View {
                 //Get current number
                 self.currentNumber = self.questionAnswer
                 
-                print("Incorrect Answer")
+                self.answerMsg = "Incorrect"
+                
+                /*
                 print(self.totalInputNumbers)
                 print(self.previousNumber)
                  print(currentNumber)
-                
+                */
                 //Swap Numbers
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     
@@ -332,6 +352,7 @@ struct Game: View {
                                 //Number 2
                                 
                                 InputModule(numberFunction: "Number 2", numberInputOne: self.fieldTwoNumberOne, numberInputTwo: self.fieldTwoNumberTwo)
+                               
                                 
                             
                                 
@@ -378,6 +399,12 @@ struct Game: View {
                                     self.fieldTwoNumberOne = self.numberPad[num]
                                     
                                     self.playerClickCounter += 1
+                                    
+                                    //Check for operator
+                                    if self.opratorSelectorMinu == false && self.operatorSelectorPlus == false && self.operatorSelectorMultiply == false {
+                                        
+                                        self.showOperatorSelectionAlert.toggle()
+                                    }
                                 
                                 //Data Entry for the Number two field two
                                 } else if self.playerClickCounter == 3 && self.playerClickCounter <= 4 {
@@ -396,7 +423,13 @@ struct Game: View {
            
                         }//End OnTapGesture
                         
+                            
+                        
                     }
+                
+                .alert(isPresented: $showOperatorSelectionAlert) {
+                        Alert(title: Text("Operator Alert"), message: Text("Select Operator"), dismissButton: .default(Text("OK"),action: {self.showOperatorSelectionAlert = false}))
+                }
             }//End of NumberPad HStack
                    
                     
@@ -441,6 +474,14 @@ struct Game: View {
                     
                             Button(action: {
                                 
+                                //Check if the Begin Game has been pressed
+                                if self.previousNumber == 0 {
+                                    
+                                    self.showBeginGameAlert.toggle()
+                                    
+                                }
+                                
+                                
                                 if self.numberInputComplete {
                                     
                                     self.calculateInput()
@@ -467,6 +508,7 @@ struct Game: View {
                                     
                                 }
                                 
+                                           
                                 
                                 
                             }) {
@@ -477,10 +519,27 @@ struct Game: View {
                                     .background(Color.blue)
                                     .foregroundColor(Color.white)
                                     .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                                
+                                
+                                
                             }
+                                
+                            
+                            //Aler for Play Game button clicked before the begin game button
+                            .alert(isPresented: $showBeginGameAlert) {
+                                
+                               Alert(title: Text("Begin Game"), message: Text("Click on Begin Game"), dismissButton: .default(Text("OK"),action: {self.showBeginGameAlert = false}))
+                                }
+                            
+                           
+                
                         
-                        
-                        
+                    }
+                    
+                    Spacer().frame(height:30)
+                    VStack {
+                        Text("Your answer was \(self.answerMsg)")
+                        Text("\(self.correctAnswerCounter) Correct Answer(s)")
                     }
             
                 }//End of VStack
