@@ -109,11 +109,12 @@ struct Game: View {
             
             //Convert Number One
             self.convertNumberOne = Int(getFieldOneNumbers) ?? 0
-            //print(self.convertNumberOne)
+            
             
             //Convert Number Two
             self.convertNumberTwo = Int(getFieldTwoNumbers) ?? 0
-            //print(self.convertNumberTwo)
+            
+            
             
         }
         
@@ -203,10 +204,9 @@ struct Game: View {
             
         }
         
-        
-        
-        
     }
+    
+
 
     
     
@@ -514,7 +514,7 @@ struct Game: View {
                             }) {
                                 
                                 
-                                Text("Play Numbers").foregroundColor(Color.black)
+                                Text("Play Numbers").foregroundColor(Color.white)
                                     .frame(width:130,height:40)
                                     .background(Color.blue)
                                     .foregroundColor(Color.white)
@@ -537,10 +537,29 @@ struct Game: View {
                     }
                     
                     Spacer().frame(height:30)
+                 
+                  
                     VStack {
-                        Text("Your answer was \(self.answerMsg)")
-                        Text("\(self.correctAnswerCounter) Correct Answer(s)")
-                    }
+                        
+                        Text("Game Statistics").foregroundColor(Color.yellow)
+                        Spacer().frame(height:30)
+                            
+                        
+                        Text("Your Answer Is: \(self.answerMsg)")
+                            .frame(width:360,height: 30,alignment: .leading)
+                        
+                        Text("Correct Answer Count: \(self.correctAnswerCounter) ")
+                            .frame(width:360,height: 30,alignment: .leading)
+                        
+                        Text("You Score is:")
+                            .frame(width:360,height: 30,alignment: .leading)
+                        
+                        Text("Timer:")
+                            .frame(width:360,height: 30,alignment: .leading)
+                        
+                        
+                    }.font(.custom("Chalkboard SE", size: 20))
+                 
             
                 }//End of VStack
             
