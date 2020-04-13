@@ -78,9 +78,10 @@ struct Game: View {
     @State private var numberPad = ["0","1","2","3","4","5","6","7","8","9"]
     
     
-    //Holders Previous and Current random numbers
-    @State private var previousCurrentNumber: [Int] = []
-    @State private var memoryArrayCounter = 0
+    
+    //Variable for Previous and Current random numbers
+    @State private var previousNumber = 0
+    @State private var currentNumber = 0
     
     
     
@@ -120,90 +121,73 @@ struct Game: View {
         if self.opratorSelectorMinu {
             
             self.totalInputNumbers = self.convertNumberOne - self.convertNumberTwo
-            print(self.totalInputNumbers)
+          
             
         } else if self.operatorSelectorPlus {
             
             self.totalInputNumbers = self.convertNumberOne + self.convertNumberTwo
-            print(self.totalInputNumbers)
+          
             
         } else if self.operatorSelectorMultiply {
             
             
             self.totalInputNumbers = self.convertNumberOne * self.convertNumberTwo
-            print(self.totalInputNumbers)
-            
-            
-            
-        }
-        
-        //Append to Memory Array
-        if self.memoryArrayCounter <= 2 {
-        self.previousCurrentNumber.append(self.questionAnswer)
-        
-            //Add to the counter
-            self.memoryArrayCounter += 1
-            
-        } else if memoryArrayCounter > 2 {
-            
-            self.previousCurrentNumber.removeSubrange(0..<2)
-            
-            self.memoryArrayCounter = 1
-            
-            self.previousCurrentNumber.append(self.questionAnswer)
-            
-            //Add to the counter
-            self.memoryArrayCounter += 1
-            
            
             
-           
+            
+            
         }
         
+    }//End of operator
+   
+//Function to analyse Previous and Current numbers
+    func correctIncorrectAnswer() {
         
-    
-        if previousCurrentNumber.indices.contains(0) && previousCurrentNumber.indices.contains(1) && self.memoryArrayCounter < 3 {
-        
-        print(self.previousCurrentNumber[0])
-        print(self.previousCurrentNumber[1])
-        print(self.memoryArrayCounter)
+        if self.numberInputComplete {
             
-        } else {
+            if self.totalInputNumbers == self.previousNumber {
+                
+                //Get current numner
+                self.currentNumber = self.questionAnswer
+                
+                print("Correct Answer")
+                print(self.totalInputNumbers)
+                print(self.previousNumber)
+                print(currentNumber)
+                
+            //Swap Numbers
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    
+                    self.previousNumber = self.currentNumber
+                    
+                }
+                
+            } else {
+                
+                //Get current number
+                self.currentNumber = self.questionAnswer
+                
+                print("Incorrect Answer")
+                print(self.totalInputNumbers)
+                print(self.previousNumber)
+                 print(currentNumber)
+                
+                //Swap Numbers
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    
+                    self.previousNumber = self.currentNumber
+                    
+                }
+                
+            }
             
-            print("No Records found")
         }
         
-    }
-    
-    
-    //Calculate Correct answer
-    func correctAnswer() {
-        
-        if previousCurrentNumber.indices.contains(1) {
-        
-        let correctRandomNumber = self.previousCurrentNumber[1]
-            
-            
-            if self.totalInputNumbers == correctRandomNumber {
-                       
-                       print("Correct Number")
-                   } else {
-                       
-                       print("Incorrect Number")
-                   }
-        
-        } else {
-            
-            
-            print("Record not found")
-        }
-        
-        
-       
         
         
         
     }
+
     
     
     var body: some View {
@@ -423,8 +407,24 @@ struct Game: View {
                         
                         Button(action: {
                             
-                            self.previousCurrentNumber.append(self.questionAnswer)
-                            self.questionAnswer = Int.random(in: 20...99)
+                            if self.fieldOneNumberOne == "" && self.fieldOneNumberTwo == "" && self.fieldTwoNumberOne == "" && self.fieldTwoNumberTwo == "" {
+                                
+                            self.previousNumber = self.questionAnswer
+                                print(self.previousNumber)
+                                
+                                //Trigger random number after one second and store in current
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1 ) {
+                                    
+                                    self.questionAnswer = Int.random(in: 20...99)
+                                    self.currentNumber = self.questionAnswer
+                                    print(self.currentNumber)
+                                    
+                                    
+                                }
+                            }//End of condition
+                            
+                            
+                            
                             
                             
                             
@@ -436,7 +436,7 @@ struct Game: View {
                                 .foregroundColor(Color.white)
                                 .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
                             
-                        }
+                        }//End of Begin Button
                     
                     
                             Button(action: {
@@ -444,11 +444,9 @@ struct Game: View {
                                 if self.numberInputComplete {
                                     
                                     self.calculateInput()
+                                    self.correctIncorrectAnswer()
                                     
-                                    self.correctAnswer()
-                                    
-                                    
-                                    
+                                   
                                     //Reset fields and answer
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                         
@@ -463,7 +461,7 @@ struct Game: View {
                                         self.playerClickCounter = 0
                                     
                           
-                                    }
+                                    }//End Delay
                                     
                                     self.numberInputComplete.toggle()
                                     
