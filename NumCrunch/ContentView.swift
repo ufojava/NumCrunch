@@ -17,6 +17,9 @@ struct ContentView: View {
     @State private var showLogo = false
     @State private var showGameBar = false
     
+    //Image place holder before intro
+    @State private var introCountdown = true
+    
     
     var body: some View {
         
@@ -31,7 +34,7 @@ struct ContentView: View {
                             .onAppear() {
                                 
                                 
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
                                     
                                     withAnimation {
                                         self.showGameBar = true
@@ -41,7 +44,7 @@ struct ContentView: View {
                                 }
                                 
                                 
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                                     
                                     withAnimation {
                                         self.showLogo = true
@@ -51,7 +54,7 @@ struct ContentView: View {
                                 }
                                
                                 
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
                                     
                                     withAnimation {
                                         self.showTitleLabelNumber = true
@@ -59,7 +62,7 @@ struct ContentView: View {
                                         }
                                     
                                 }
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
                                 
                                     withAnimation {
                                     self.showTitleLabelFirst = true
@@ -75,6 +78,8 @@ struct ContentView: View {
                                 
                                 
                                   }//End onAppear
+                        
+                        IntroCountdown()
                         
                                     ZStack(alignment: .center) {
                                         
@@ -170,6 +175,152 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        
+       ContentView()
+        
+        //IntroCountdown()
+    }
+}
+
+
+
+struct IntroCountdown: View {
+    
+    @State private var showCircleThree = true
+    @State private var showCircleTwo = true
+    @State private var showCircleOne = true
+    
+    
+    
+    var body: some View {
+        
+        
+        
+        ZStack {
+            
+            //Temp background
+            Color(red: 0.2, green: 0.4, blue: 0.4).edgesIgnoringSafeArea(.all)
+                .onAppear() {
+                    
+                 
+                        
+                        
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                
+                            withAnimation {
+                                
+                            self.showCircleThree = false
+                                
+                            }
+                        
+                        
+                    }//End Circle three
+                    
+                    
+              
+                        
+                        
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            
+                                withAnimation {
+                                    
+                                    
+                            self.showCircleTwo = false
+                                
+                            }
+                    
+                        
+                    }//End Circle two
+                    
+                    
+                  
+                        
+                        
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            
+                                withAnimation {
+                            self.showCircleOne = false
+                                
+                            }
+                        }
+                        
+    
+            
+                    
+            }// Ens onAppear
+            
+            
+            
+            
+            
+            
+                
+                ZStack {
+                        if self.showCircleOne {
+                            
+                            
+                                Circle()
+                                    .frame(width: 100,height: 100)
+                                    .foregroundColor(Color.green)
+                                    .overlay(Circle().stroke(Color.black,lineWidth: 2))
+                                    .transition(.move(edge: .leading))
+                                
+                                
+                                Text("1")
+                                    .font(.system(size: 40))
+                          
+                           
+                        }
+                
+                }
+            
+            
+            
+            ZStack {
+                
+                
+                    if self.showCircleTwo {
+                    
+                            Circle()
+                                .frame(width: 200,height: 200)
+                                .foregroundColor(Color.blue)
+                                .overlay(Circle().stroke(Color.black,lineWidth: 2))
+                                .transition(.move(edge: .trailing))
+                            
+                            
+                            Text("2")
+                                .font(.system(size: 40))
+                        
+                        
+                    }
+                
+            
+            }
+            
+            
+            ZStack {
+                
+                   if self.showCircleThree {
+                    
+                            Circle()
+                                .frame(width: 300,height: 300)
+                                .foregroundColor(Color.yellow)
+                                .overlay(Circle().stroke(Color.black,lineWidth: 2))
+                                .transition(.move(edge: .bottom))
+                            
+                         
+                            
+                            Text("3")
+                                .font(.system(size: 40))
+                       
+                    }
+            }
+        }
+        
+        
+        
     }
 }
