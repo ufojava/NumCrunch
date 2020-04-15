@@ -15,6 +15,7 @@ struct CallGame: View {
     var body: some View {
         
         NavigationView {
+            
         
         Game()
         
@@ -65,6 +66,8 @@ struct Game: View {
     //Correct Answer Counter an messages
     @State private var correctAnswerCounter = 0
     @State private var answerMsg = ""
+    @State private var playerScore = 0
+    @State private var playerBonus = 0
    
     
     //Monitor the number state
@@ -166,8 +169,29 @@ struct Game: View {
                 //Get current numner
                 self.currentNumber = self.questionAnswer
                 
-                self.answerMsg = "Correct"
+                self.answerMsg = "Correct "
                 self.correctAnswerCounter += 1
+                
+            
+                //Player Scores
+                if (self.previousNumber - self.convertNumberOne) > 5 && (self.previousNumber - self.convertNumberTwo) > 5 {
+                    print(self.previousNumber)
+                    
+                    //Score Breakdown - Basic Score
+                    self.playerScore += 50
+                    
+                    //CREATE ANOTHER CONDITION 20 > 3
+                } else if (self.previousNumber - self.convertNumberOne) > 3 && (self.previousNumber - self.convertNumberTwo) > 3 {
+                    
+                    
+                    self.playerScore += 30
+                    
+                } else {
+                    
+                    self.playerScore += 10
+                }
+                
+                
                 
               
             //Swap Numbers
@@ -182,7 +206,7 @@ struct Game: View {
                 //Get current number
                 self.currentNumber = self.questionAnswer
                 
-                self.answerMsg = "Incorrect"
+                self.answerMsg = "Incorrect "
                 
            
                 //Swap Numbers
@@ -561,7 +585,7 @@ struct Game: View {
                         Text("You Score is:")
                             .frame(width:260,height: 30,alignment: .leading)
                             
-                            InTextField(inText: "Score ")
+                            InTextField(inText: "\(self.playerScore) ")
                         }
                         
                         Spacer().frame(height:5)
