@@ -19,6 +19,7 @@ struct ContentView: View {
     
     //Image place holder before intro
     @State private var introCountdown = true
+
     
     
     var body: some View {
@@ -136,13 +137,25 @@ struct ContentView: View {
                                             .foregroundColor(Color.init(red: 0.4, green: 0.5, blue: 0.4))
                                             .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
                                             .transition(.move(edge: .trailing))
-                                            
-                                            Text("P\nl\na\ny\n\nG\na\nm\ne")
-                                                .foregroundColor(Color.white)
-                                                .font(.custom("American Typewriter", size: 25))
-                                                .transition(.move(edge: .trailing))
+                                                    
+                                           
+                                        
                                                 
-                                                }
+                                                    NavigationLink(destination: CallGame()) {
+                                                    
+                                                    Text("P\nl\na\ny\n\nG\na\nm\ne")
+                                                        .foregroundColor(Color.white)
+                                                        .font(.custom("American Typewriter", size: 25))
+                                                        .transition(.move(edge: .trailing))
+                                            
+                                                    }
+                                            }
+                                            
+                                                
+                                                
+                                            
+                                                
+                                                
  
                                             }//End of ZStack for Game Bar
                                             
