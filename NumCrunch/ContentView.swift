@@ -264,7 +264,7 @@ struct IntroCountdown: View {
                             
                                 Circle()
                                     .frame(width: 100,height: 100)
-                                    .foregroundColor(Color.green)
+                                    .foregroundColor(Color.green).opacity(0.5)
                                     .overlay(Circle().stroke(Color.black,lineWidth: 2))
                                     .transition(.move(edge: .leading))
                                 
@@ -286,7 +286,7 @@ struct IntroCountdown: View {
                     
                             Circle()
                                 .frame(width: 200,height: 200)
-                                .foregroundColor(Color.blue)
+                                .foregroundColor(Color.blue).opacity(0.5)
                                 .overlay(Circle().stroke(Color.black,lineWidth: 2))
                                 .transition(.move(edge: .trailing))
                             
@@ -307,7 +307,7 @@ struct IntroCountdown: View {
                     
                             Circle()
                                 .frame(width: 300,height: 300)
-                                .foregroundColor(Color.yellow)
+                                .foregroundColor(Color.yellow).opacity(0.5)
                                 .overlay(Circle().stroke(Color.black,lineWidth: 2))
                                 .transition(.move(edge: .bottom))
                             
