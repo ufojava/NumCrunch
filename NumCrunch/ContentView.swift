@@ -19,6 +19,8 @@ struct ContentView: View {
     
     //Image place holder before intro
     @State private var introCountdown = true
+    @State private var playIntroMusic = true
+    
 
     
     
@@ -33,6 +35,17 @@ struct ContentView: View {
                         Color(red: 0.2, green: 0.4, blue: 0.4).edgesIgnoringSafeArea(.all)
                         
                             .onAppear() {
+                                
+                                //Play introduction music
+                                if self.playIntroMusic {
+                                    
+                                    //Play Intro File
+                                    playAudioFile(soundFile: "FirstNumberIntro", type: "mp3")
+                                    
+                                    self.playIntroMusic.toggle()
+                                    
+                                }
+                                
                                 
                                 
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 4) {

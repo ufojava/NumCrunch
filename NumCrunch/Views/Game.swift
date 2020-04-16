@@ -11,6 +11,7 @@ import SwiftUI
 
 
 struct CallGame: View {
+
     
     var body: some View {
         
@@ -18,6 +19,7 @@ struct CallGame: View {
             
         
         Game()
+           
         
         }
         
@@ -99,7 +101,8 @@ struct Game: View {
     
     
     
-    
+    //Play backgound music
+    @State private var playBackgroundMusic = true
    
     
     
@@ -236,6 +239,19 @@ struct Game: View {
             //Background colour
         
             Color(red: 0.4, green: 0.5, blue: 0.4).edgesIgnoringSafeArea(.all)
+                
+             
+                .onAppear() {
+                    
+                               
+                               playAudioBackgroundMusic(soundFile: "FirstNumberBackground", type: "mp3")
+                   
+                }
+                
+            .onDisappear() {
+                
+                            stopAudioPlay()
+                }
                 
                 VStack {
             
