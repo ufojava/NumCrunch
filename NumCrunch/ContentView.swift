@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var showTitleLabelNumber = false
     @State private var showLogo = false
     @State private var showGameBar = false
+    @State private var showInstructions = false
     
     //Image place holder before intro
     @State private var introCountdown = true
@@ -40,7 +41,7 @@ struct ContentView: View {
                                 if self.playIntroMusic {
                                     
                                     //Play Intro File
-                                    playAudioFile(soundFile: "FirstNumberIntro", type: "mp3")
+                                    //playAudioFile(soundFile: "FirstNumberIntro", type: "mp3")
                                     
                                     self.playIntroMusic.toggle()
                                     
@@ -85,47 +86,68 @@ struct ContentView: View {
                                     }
                                     
                                 }
-                                    
-                                    
-                                    
-                                    
                                 
-                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+                                    
+                                    withAnimation {
+                                        
+                                        self.showInstructions = true
+                                    }
+                                }
+                                    
+                                                           
                                   }//End onAppear
                         
                         IntroCountdown()
-                        
-                                    ZStack(alignment: .center) {
+                    
+                            ZStack(alignment: .center) {
+                                        
                                         
                                         HStack {
+                                            
+                                            VStack {
+                                            
+                                                if self.showInstructions {
+                                                Text("Instructions")
+                                                    .frame(width:245,height: 40,alignment: .leading)
+                                                    .font(.custom("American Typewriter", size: 23))
+                                                    .transition(.move(edge: .leading))
+                                                }
                                                 
+                                                Spacer().frame(height:50)
                                             HStack {
                                                 
-                                                HStack {
-                                                    
-                                                    if self.showTitleLabelFirst {
-                                                    Text("First")
-                                                        .foregroundColor(Color.yellow)
-                                                        .font(.custom("American Typewriter", size: 23))
-                                                        .transition(.move(edge: .leading))
-                                                        
-                                                    }
-
-
-                                                    Spacer().frame(width:0) //Space between label
-                                                   
-                                                    if self.showTitleLabelNumber {
-                                                    
-                                                    
-                                                    Text("Number")
-                                                        .foregroundColor(Color.red)
-                                                        .font(.custom("American Typewriter", size: 23))
-                                                        .transition(.move(edge: .leading))
-                                                        
-                                                        
-                                                    }
+                                                
                                                  
-                                                }
+                                                
+                                                  
+                                                        HStack {
+                                                            
+                                                            if self.showTitleLabelFirst {
+                                                            Text("First")
+                                                                .foregroundColor(Color.yellow)
+                                                                .font(.custom("American Typewriter", size: 23))
+                                                                .transition(.move(edge: .leading))
+                                                                
+                                                            }
+
+
+                                                            Spacer().frame(width:0) //Space between label
+                                                           
+                                                            if self.showTitleLabelNumber {
+                                                            
+                                                            
+                                                            Text("Number")
+                                                                .foregroundColor(Color.red)
+                                                                .font(.custom("American Typewriter", size: 23))
+                                                                .transition(.move(edge: .leading))
+                                                                
+                                                                
+                                                            }
+                                                         
+                                                        }//Hstack for Logo label
+                                                
+                                                
                                                 
                                                 
                                                 
@@ -138,10 +160,13 @@ struct ContentView: View {
                                                     
                                                 }
                                             }//HStack for logo and label
+                                                Spacer().frame(height:90)
+                                              
+                                            }
                                             
                                             Spacer().frame(width:80)
                                             
-                                            
+                                        
                                             ZStack {
                                                 
                                                 if self.showGameBar {
@@ -171,6 +196,11 @@ struct ContentView: View {
                                                 
  
                                             }//End of ZStack for Game Bar
+                                                
+                                              
+                                            
+                                            
+                                            
                                             
                                         }//HStack for Logon and Playbar
                                         
