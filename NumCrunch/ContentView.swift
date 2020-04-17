@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var showTitleLabelNumber = false
     @State private var showLogo = false
     @State private var showGameBar = false
+    @State private var showIntructionBar = false
     @State private var showInstructions = false
     
     //Image place holder before intro
@@ -41,7 +42,7 @@ struct ContentView: View {
                                 if self.playIntroMusic {
                                     
                                     //Play Intro File
-                                    //playAudioFile(soundFile: "FirstNumberIntro", type: "mp3")
+                                    playAudioFile(soundFile: "FirstNumberIntro", type: "mp3")
                                     
                                     self.playIntroMusic.toggle()
                                     
@@ -52,6 +53,7 @@ struct ContentView: View {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
                                     
                                     withAnimation {
+                                        self.showInstructions = true
                                         self.showGameBar = true
                                         
                                     }
@@ -106,15 +108,7 @@ struct ContentView: View {
                                         HStack {
                                             
                                             VStack {
-                                            
-                                                if self.showInstructions {
-                                                Text("Instructions")
-                                                    .frame(width:245,height: 40,alignment: .leading)
-                                                    .font(.custom("American Typewriter", size: 23))
-                                                    .transition(.move(edge: .leading))
-                                                }
-                                                
-                                                Spacer().frame(height:50)
+ 
                                             HStack {
                                                 
                                                 
@@ -162,34 +156,67 @@ struct ContentView: View {
                                             }//HStack for logo and label
                                                 Spacer().frame(height:90)
                                               
-                                            }
+                                           }
                                             
                                             Spacer().frame(width:80)
                                             
                                         
                                             ZStack {
                                                 
-                                                if self.showGameBar {
-                                        Rectangle()
-                                            .frame(width:70,height:600)
-                                            .foregroundColor(Color.init(red: 0.4, green: 0.5, blue: 0.4))
-                                            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
-                                            .transition(.move(edge: .trailing))
+                                                VStack {
                                                     
-                                           
-                                        
-                                                
-                                                    NavigationLink(destination: CallGame()) {
-                                                    
-                                                    Text("P\nl\na\ny\n\nG\na\nm\ne")
-                                                        .foregroundColor(Color.white)
-                                                        .font(.custom("American Typewriter", size: 25))
-                                                        .transition(.move(edge: .trailing))
-                                            
+                                                    ZStack {
+                                                                if self.showInstructions {
+                                                                    
+                                                                    Rectangle()
+                                                                        .frame(width:70,height:300)
+                                                                        .foregroundColor(Color.init(red: 0.5, green: 0.3, blue: 0.4))
+                                                                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                                                                        .transition(.move(edge: .trailing))
+                                                                                
+                                                                       
+                                                                    
+                                                                            
+                                                                                NavigationLink(destination: GameInstructions()) {
+                                                                                
+                                                                                Text("T\nu\nt\no\nr\ni\na\nl")
+                                                                                    .foregroundColor(Color.white)
+                                                                                    .font(.custom("American Typewriter", size: 25))
+                                                                                    .transition(.move(edge: .trailing))
+                                                                        
+                                                                                }
+                                                                    
+                                                                    
+                                                                    
+                                                                }
                                                     }
-                                            }
-                                            
-                                                
+                                                    Spacer().frame(height:5)
+                                                    
+                                                    ZStack {
+                                                            if self.showGameBar {
+                                                    Rectangle()
+                                                        .frame(width:70,height:300)
+                                                        .foregroundColor(Color.init(red: 0.4, green: 0.5, blue: 0.4))
+                                                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
+                                                        .transition(.move(edge: .trailing))
+                                                                
+                                                       
+                                                    
+                                                            
+                                                                NavigationLink(destination: CallGame()) {
+                                                                
+                                                                Text("P\nl\na\ny\n\nG\na\nm\ne")
+                                                                    .foregroundColor(Color.white)
+                                                                    .font(.custom("American Typewriter", size: 25))
+                                                                    .transition(.move(edge: .trailing))
+                                                                    
+                                                                    
+                                                        
+                                                                }
+                                                        
+                                                        }//End of show GameBar
+                                                    }
+                                                }
                                                 
                                             
                                                 

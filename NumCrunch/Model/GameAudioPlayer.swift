@@ -50,7 +50,7 @@ func playAudioBackgroundMusic(soundFile:String,type:String) {
             
             gameAudioPlayerBackground = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: soundFilePath))
             gameAudioPlayerBackground?.numberOfLoops = -1
-            gameAudioPlayerBackground?.volume = 0.2
+            gameAudioPlayerBackground?.volume = 0.4
             gameAudioPlayerBackground?.play()
             
             
