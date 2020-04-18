@@ -54,6 +54,29 @@ struct GameInstructions: View {
 @State private var showResetGame = false
 @State private var showResetGameText = false
     
+@State private var tutorialMsg = ""
+    
+    
+//Function to display message
+    func tutoriaMessage() -> String {
+        
+        var message = ""
+        
+        
+        if self.tutorialCounter >= 0 && self.tutorialCounter <= 10 {
+            message = "Click Next for More"
+            
+            
+        } else {
+            
+            message = "End. Next to Restart"
+           
+            
+        }
+        
+        return message
+    }
+    
     
 //Tutorial Counter
     @State private var tutorialCounter = 0
@@ -70,7 +93,7 @@ struct GameInstructions: View {
                 VStack {
                 
                             HStack {
-                            Text("Click Next for More")
+                                Text("\(self.tutoriaMessage())")
                                 .frame(width:250,height: 30,alignment: .leading)
                                 .font(.custom("American Typewriter", size: 23))
                                 .foregroundColor(Color.white)
@@ -81,10 +104,24 @@ struct GameInstructions: View {
                             
                                 Button(action: {
                                     
-                                    self.tutorialCounter += 1
                                     
-                                    //First Screen
+                                    
+                                    
+                                    if self.tutorialCounter >= 0 && self.tutorialCounter <= 10 {
+                                    
+                                    self.tutorialCounter += 1
+                                        
+                                    } else {
+                                        
+                                        self.tutorialCounter = 1
+                                        //self.tutorialCounter += 1
+                                    }
+                                    
+                                    //Play Game Option
                                     if self.tutorialCounter == 1 {
+                                        
+                                        self.showResetGame = false
+                                        self.showResetGameText = false
                                         
                                         withAnimation {
                                             
@@ -101,7 +138,7 @@ struct GameInstructions: View {
                                         
                                         }
                                     
-                                    //Second Screen
+                                    //Tutorial Option
                                     if self.tutorialCounter == 2 {
                                         
                                         self.showPlayGame.toggle()
@@ -119,7 +156,7 @@ struct GameInstructions: View {
                                         
                                     }
                                     
-                                    //Third Screen
+                                    //Cliock Begin Game
                                     if self.tutorialCounter == 3 {
                                         
                                         self.showTutorial.toggle()
@@ -135,71 +172,120 @@ struct GameInstructions: View {
                                         }
                                     }
                                     
-                                    //Fourth Screen
+                                    //Memorise Random First Number
                                     if self.tutorialCounter == 4 {
                                         
                                         self.showClickBeginGame.toggle()
                                         self.showClickBeginGameText.toggle()
                                         
                                         withAnimation {
-                                            self.showMemoriseNumber = true
+                                            self.showMemoriseNumber.toggle()
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                self.showMemoriseNumberText = true
+                                                self.showMemoriseNumberText.toggle()
                                             }
                                         }
                                     }
                                     
-                                    //Fifth Screen
+                                    //Number Pad
                                     if self.tutorialCounter == 5 {
                                         
+                                        self.showMemoriseNumber.toggle()
+                                        self.showMemoriseNumberText.toggle()
+                                        
                                         withAnimation {
                                             
-                                            self.showClickOperators = true
+                                            self.showNumberPad.toggle()
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                self.showClickOperatorsText = true
+                                                self.showNumberPadText.toggle()
                                             }
                                         }
                                     }
                                     
-                                    //Sixth Screen
+                                    //Number Digits
                                     if self.tutorialCounter == 6 {
                                         
+                                        self.showNumberPad.toggle()
+                                        self.showNumberPadText.toggle()
+                                        
                                         withAnimation {
                                             
-                                            self.showClickPlayNumbers = true
+                                            self.showNumberDigits.toggle()
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                self.showClickPlayNumbersText = true
+                                                self.showNumberDigitsText.toggle()
                                             }
                                         }
                                     }
                                     
-                                    //Seventh Screen
+                                    //Select Operators
                                     if self.tutorialCounter == 7 {
                                         
+                                        self.showNumberDigits.toggle()
+                                        self.showNumberDigitsText.toggle()
+                                        
                                         withAnimation {
                                             
-                                            self.showStatisics = true
+                                            self.showClickOperators.toggle()
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                self.showStatisicsText = true
+                                                self.showClickOperatorsText.toggle()
                                             }
                                         }
                                     }
                                     
-                                    //Eight Screen
+                                    //Play Numbers
                                     if self.tutorialCounter == 8 {
+                                        
+                                        self.showClickOperators.toggle()
+                                        self.showClickOperatorsText.toggle()
                                         
                                         withAnimation {
                                             
-                                            self.showResetGame = true
+                                            self.showClickPlayNumbers.toggle()
                                             
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                self.showResetGameText = true
+                                                self.showClickPlayNumbersText.toggle()
                                             }
                                         }
+                                    }
+                                    
+                                    //Show Statistics
+                                    if self.tutorialCounter == 9 {
+                                        
+                                        self.showClickPlayNumbers.toggle()
+                                        self.showClickPlayNumbersText.toggle()
+                                        
+                                        withAnimation {
+                                            
+                                            self.showStatisics.toggle()
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                self.showStatisicsText.toggle()
+                                            }
+                                            
+                                        }
+                                        
+                                    }//End Show Statisitcs
+                                    
+                                    //Reset Game
+                                    if self.tutorialCounter == 10 {
+                                        
+                                        self.showStatisics.toggle()
+                                        self.showStatisicsText.toggle()
+                                        
+                                        withAnimation {
+                                            
+                                            self.showResetGame.toggle()
+                                            
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            self.showResetGameText.toggle()
+                                        }
+                                            
+                                            
+                                        }
+                                        
                                     }
                                     
                                 }) {
@@ -216,95 +302,231 @@ struct GameInstructions: View {
                                 }
                             }
                     Spacer().frame(height:30)
+                    
+                    Group {
                 
-                //How to play game
-                if self.showPlayGame {
+                            //How to play game
+                            if self.showPlayGame {
+                                
+                                VStack {
+                                
+                                Text("Click on Play Game to play")
+                                    .frame(width:300,height: 30,alignment: .leading)
+                                    .font(.custom("American Typewriter", size: 23))
+                                    .foregroundColor(Color.yellow)
+                                    
+                                    
+                                    Spacer().frame(height:40)
+                                    
+                                    GameImage(tutorialImage: "TutorialFront_PlayGame")
+                                    
+                                }.transition(.move(edge: .bottom))
+                            }
+                                
+                            //How to get help
+                                if self.showTutorial {
+                                    
+                                    VStack {
+                                    
+                                    Text("For Help Click Tutorial")
+                                        .frame(width:300,height: 30,alignment: .leading)
+                                        .font(.custom("American Typewriter", size: 23))
+                                        .foregroundColor(Color.yellow)
+                                        
+                                        
+                                        Spacer().frame(height:40)
+                                        
+                                        GameImage(tutorialImage: "TutorialFront_Tutorial")
+                                        
+                                    }.transition(.move(edge: .bottom))
+                                }
+                                
+                                //Begin Game
+                                if self.showClickBeginGame {
+                                    
+                                   VStack {
+                                        
+                                        Text("Begin Game to Start")
+                                            .frame(width:300,height: 30,alignment: .leading)
+                                            .font(.custom("American Typewriter", size: 23))
+                                            .foregroundColor(Color.yellow)
+                                            
+                                            
+                                            Spacer().frame(height:40)
+                                            
+                                            GameImage(tutorialImage: "TutorialPlayGame_Instruction_One")
+                                            
+                                        }.transition(.move(edge: .bottom))
+                                    }
+                                }//End of Group
                     
-                    VStack {
+                    Group {
                     
-                    Text("Click on Play Game to play")
-                        .frame(width:300,height: 30,alignment: .leading)
-                        .font(.custom("American Typewriter", size: 23))
-                        .foregroundColor(Color.yellow)
+                                //Memorise Number
+                                if self.showMemoriseNumber {
+                                    
+                                    VStack {
+                                    
+                                    Text("Memorise Answer Number")
+                                        .frame(width:300,height: 30,alignment: .leading)
+                                        .font(.custom("American Typewriter", size: 23))
+                                        .foregroundColor(Color.yellow)
+                                        
+                                        
+                                        Spacer().frame(height:40)
+                                        
+                                        GameImage(tutorialImage: "TutorialPlayGame_Instruction_Two")
+                                        
+                                    }.transition(.move(edge: .bottom))
+                                    
+                                    
+                                }
                         
                         
-                        Spacer().frame(height:40)
+                                
+                                //Nuber Pad Entry UI
+                               if self.showNumberPad {
+                                    
+                                    VStack {
+                                        
+                                        Text("Number Entry Pad")
+                                            .frame(width:300, height:30,alignment: .leading)
+                                            .font(.custom("American Typewriter", size: 23))
+                                            .foregroundColor(Color.yellow)
+                                        
+                                        Spacer().frame(height:40)
+                                        
+                                         GameImage(tutorialImage: "TutorialPlayGame_Instruction_Three")
+                                        
+                                    }.transition(.move(edge: .bottom))
+                                }
+                                
                         
-                        GameImage(tutorialImage: "TutorialFront_PlayGame")
                         
-                    }.transition(.move(edge: .bottom))
-                }
-                    
-                //How to get help
-                    if self.showTutorial {
+                                //Show Number Digits
+                                if self.showNumberDigits {
+                                    
+                                    
+                                    VStack {
+                                        
+                                        Text("Number Format e.g 12 / 01")
+                                            .frame(width:300, height:30,alignment: .leading)
+                                                .font(.custom("American Typewriter", size: 23))
+                                                .foregroundColor(Color.yellow)
+                                            
+                                            Spacer().frame(height:40)
+                                        
+                                        GameImage(tutorialImage: "TutorialPlayGame_Instruction_Four")
+                                        
+                                        
+                                        
+                                    }.transition(.move(edge: .bottom))
+                                    
+                                    
+                                }
                         
-                        VStack {
                         
-                        Text("For Help Click Tutorial")
-                            .frame(width:300,height: 30,alignment: .leading)
-                            .font(.custom("American Typewriter", size: 23))
-                            .foregroundColor(Color.yellow)
+                        Group {
                             
-                            
-                            Spacer().frame(height:40)
-                            
-                            GameImage(tutorialImage: "TutorialFront_Tutorial")
-                            
-                        }.transition(.move(edge: .bottom))
-                    }
-                    
-                    //Begin Game
-                    if self.showClickBeginGame {
-                        
-                       VStack {
-                            
-                            Text("Begin Game to Start")
-                                .frame(width:300,height: 30,alignment: .leading)
-                                .font(.custom("American Typewriter", size: 23))
-                                .foregroundColor(Color.yellow)
+                            //Show Click Operators
+                            if self.showClickOperators {
                                 
                                 
-                                Spacer().frame(height:40)
+                                VStack {
+                                    
+                                    Text("Select Operators +,-,*")
+                                        .frame(width:300, height:30,alignment: .leading)
+                                            .font(.custom("American Typewriter", size: 23))
+                                            .foregroundColor(Color.yellow)
+                                        
+                                        Spacer().frame(height:40)
+                                    
+                                    GameImage(tutorialImage: "TutorialPlayGame_Instruction_Five")
+                                    
+                                    
+                                    
+                                }.transition(.move(edge: .bottom))
                                 
-                                GameImage(tutorialImage: "TutorialPlayGame_Instruction_One")
+                            }
+                            
+                            
+                            
+                            if self.showClickPlayNumbers {
                                 
-                            }.transition(.move(edge: .bottom))
-                        }
-                    
-                    //Memorise Number
-                    if self.showMemoriseNumber {
-                        
-                        VStack {
-                        
-                        Text("Memorise Answer Number")
-                            .frame(width:300,height: 30,alignment: .leading)
-                            .font(.custom("American Typewriter", size: 23))
-                            .foregroundColor(Color.yellow)
+                                VStack {
+                                
+                                Text("Play Numbers")
+                                    .frame(width:300, height:30,alignment: .leading)
+                                        .font(.custom("American Typewriter", size: 23))
+                                        .foregroundColor(Color.yellow)
+                                    
+                                    Spacer().frame(height:40)
+                                
+                                GameImage(tutorialImage: "TutorialPlayGame_Instruction_Six")
+                                    
+                                }.transition(.move(edge: .bottom))
+                                
+                            }
                             
                             
-                            Spacer().frame(height:40)
+                            if self.showStatisics {
+                                
+                                VStack {
+                                    
+                                    Text("Game Play Stats")
+                                        .frame(width:300, height:30,alignment: .leading)
+                                            .font(.custom("American Typewriter", size: 23))
+                                            .foregroundColor(Color.yellow)
+                                        
+                                        Spacer().frame(height:40)
+                                    
+                                    GameImage(tutorialImage: "TutorialPlayGame_Instruction_Seven")
+                                    
+                                    
+                                    
+                                }.transition(.move(edge: .bottom))
+                            }
                             
-                            GameImage(tutorialImage: "TutorialPlayGame_Instruction_Two")
+                            if self.showResetGame {
+                                
+                                VStack {
+                                    
+                                    Text("Restart Game")
+                                        .frame(width:300, height:30,alignment: .leading)
+                                            .font(.custom("American Typewriter", size: 23))
+                                            .foregroundColor(Color.yellow)
+                                        
+                                        Spacer().frame(height:40)
+                                    
+                                    GameImage(tutorialImage: "TutorialPlayGame_Instruction_Eight")
+                                    
+                                    
+                                }.transition(.move(edge: .bottom))
+                            }
                             
-                        }.transition(.move(edge: .bottom))
+                        }//End of Group
                         
                         
                         
                         
-                    }
-                    
                         
                         
-                        
-                        
+                    }//VStack
                     
                     
                     
                     
-                    
-                    
+                
+                }// for Each page
+                
+
+                
+               
+                
+                
+                
+             
                 Spacer()
-                }//VStack for Each page
         
             }//End of ZStack
         
