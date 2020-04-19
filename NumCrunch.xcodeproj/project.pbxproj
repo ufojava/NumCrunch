@@ -18,6 +18,7 @@
 		03AF58402448E69200F1F207 /* GameAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AF583F2448E69200F1F207 /* GameAudioPlayer.swift */; };
 		03AF58422448F2ED00F1F207 /* FirstNumberBackground.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 03AF58412448F2EC00F1F207 /* FirstNumberBackground.mp3 */; };
 		03AF584424498BBD00F1F207 /* GameInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AF584324498BBD00F1F207 /* GameInstructions.swift */; };
+		03AF5846244CE7FD00F1F207 /* TestBed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AF5845244CE7FD00F1F207 /* TestBed.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		03AF583F2448E69200F1F207 /* GameAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAudioPlayer.swift; sourceTree = "<group>"; };
 		03AF58412448F2EC00F1F207 /* FirstNumberBackground.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = FirstNumberBackground.mp3; sourceTree = "<group>"; };
 		03AF584324498BBD00F1F207 /* GameInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInstructions.swift; sourceTree = "<group>"; };
+		03AF5845244CE7FD00F1F207 /* TestBed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBed.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 			children = (
 				03773A2E243FD19D00D228E9 /* Game.swift */,
 				03AF584324498BBD00F1F207 /* GameInstructions.swift */,
+				03AF5845244CE7FD00F1F207 /* TestBed.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				03773A19243F73FF00D228E9 /* AppDelegate.swift in Sources */,
 				03773A1B243F73FF00D228E9 /* SceneDelegate.swift in Sources */,
 				03773A1D243F73FF00D228E9 /* ContentView.swift in Sources */,
+				03AF5846244CE7FD00F1F207 /* TestBed.swift in Sources */,
 				03773A2F243FD19D00D228E9 /* Game.swift in Sources */,
 				03AF584424498BBD00F1F207 /* GameInstructions.swift in Sources */,
 				03AF58402448E69200F1F207 /* GameAudioPlayer.swift in Sources */,

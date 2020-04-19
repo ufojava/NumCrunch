@@ -58,6 +58,8 @@ struct Game: View {
     @State private var getFieldOneNumbers = ""
     @State private var getFieldTwoNumbers = ""
     
+
+    
     //Converted Numbers to Int
     @State private var convertNumberOne = 0
     @State private var convertNumberTwo = 0
@@ -143,17 +145,19 @@ struct Game: View {
         
         if self.opratorSelectorMinu {
             
+         
             self.totalInputNumbers = self.convertNumberOne - self.convertNumberTwo
           
             
         } else if self.operatorSelectorPlus {
             
+   
             self.totalInputNumbers = self.convertNumberOne + self.convertNumberTwo
           
             
         } else if self.operatorSelectorMultiply {
             
-            
+          
             self.totalInputNumbers = self.convertNumberOne * self.convertNumberTwo
            
             
@@ -342,19 +346,23 @@ struct Game: View {
                                     //Minus Button
                                     Button(action: {
                                         
-                                        self.opratorSelectorMinu.toggle()
-                                        
-                                        //Check other operators
-                                        
-                                        if self.operatorSelectorPlus == true {
+                                                                            
+                                            self.opratorSelectorMinu.toggle()
                                             
-                                            self.operatorSelectorPlus.toggle()
-                                        }
-                                        
-                                        if self.operatorSelectorMultiply == true {
+                                                                                        
+                                            //Check other operators
                                             
-                                            self.operatorSelectorMultiply.toggle()
-                                        }
+                                            if self.operatorSelectorPlus == true {
+                                                
+                                                self.operatorSelectorPlus.toggle()
+                                            }
+                                            
+                                            if self.operatorSelectorMultiply == true {
+                                                
+                                                self.operatorSelectorMultiply.toggle()
+                                            }
+                                        
+                                       
                                         
                                     }) {
                                         
@@ -376,18 +384,24 @@ struct Game: View {
                                     //Plus Button
                                     Button(action: {
                                         
-                                        self.operatorSelectorPlus.toggle()
+                                   
                                         
-                                        //Check other operators
-                                        if self.opratorSelectorMinu == true {
+                                                self.operatorSelectorPlus.toggle()
                                             
-                                            self.opratorSelectorMinu.toggle()
-                                        }
+                                                
+                                                //Check other operators
+                                                if self.opratorSelectorMinu == true {
+                                                    
+                                                    self.opratorSelectorMinu.toggle()
+                                                }
+                                                
+                                                if self.operatorSelectorMultiply == true {
+                                                    
+                                                    self.operatorSelectorMultiply.toggle()
+                                                }
                                         
-                                        if self.operatorSelectorMultiply == true {
-                                            
-                                            self.operatorSelectorMultiply.toggle()
-                                        }
+                           
+                                        
                                         
                                     }) {
                                         
@@ -409,19 +423,24 @@ struct Game: View {
                                     //Multiply Button
                                     Button(action: {
                                         
-                                        self.operatorSelectorMultiply.toggle()
+                                      
                                         
-                                        //Check for other operators
-                                        if self.opratorSelectorMinu == true {
+                                                self.operatorSelectorMultiply.toggle()
+                                             
+                                                
+                                                //Check for other operators
+                                                if self.opratorSelectorMinu == true {
+                                                    
+                                                    self.opratorSelectorMinu.toggle()
+                                                }
+                                                
+                                                if self.operatorSelectorPlus == true {
+                                                    
+                                                    self.operatorSelectorPlus.toggle()
+                                                }
                                             
-                                            self.opratorSelectorMinu.toggle()
-                                        }
                                         
-                                        if self.operatorSelectorPlus == true {
-                                            
-                                            self.operatorSelectorPlus.toggle()
-                                        }
-                                        
+                                     
                                         
                                     }) {
                                         
