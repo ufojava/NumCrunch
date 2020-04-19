@@ -54,7 +54,6 @@ struct GameInstructions: View {
 @State private var showResetGame = false
 @State private var showResetGameText = false
     
-@State private var tutorialMsg = ""
     
     
 //Function to display message

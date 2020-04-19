@@ -65,7 +65,7 @@ struct Game: View {
     //Variable to hold added Numbers 1 and 2
     @State private var totalInputNumbers = 0
     
-    //Correct Answer Counter an messages
+    //Correct Answer Counter and messages
     @State private var correctAnswerCounter = 0
     @State private var answerMsg = ""
     @State private var playerScore = 0
@@ -98,11 +98,15 @@ struct Game: View {
     @State private var showBeginGameAlert = false //Ensure Begin play has been pressed
     @State private var showPlayNumbersAlert = false // Ensure the numbers are entered before play numbers is pressed
     @State private var showOperatorSelectionAlert = false //One operator must be selected before selecting digit 3
+    @State private var showGameReset = false //Alert for game reset
     
     
     
     //Play backgound music
     @State private var playBackgroundMusic = true
+    
+    //Reset game
+    @State private var clickResetGame = false
    
     
     
@@ -223,7 +227,63 @@ struct Game: View {
             
         }
         
-    }
+    }//End CorrectIncorrectFunction
+    
+    //Funciton to reset game
+    func resetGame() {
+        
+        //Reset Random Number
+        self.questionAnswer = Int.random(in: 20...99)
+        
+        //Reset Digits 1 and 2
+        self.fieldOneNumberOne = ""
+        self.fieldOneNumberTwo = ""
+        self.fieldTwoNumberOne = ""
+        self.fieldTwoNumberTwo = ""
+        
+        //Reset get Numbers 1 & 2
+        self.getFieldOneNumbers = ""
+        self.getFieldTwoNumbers = ""
+        
+        //Reset Convert Numbers 1 & 2
+        self.convertNumberOne = 0
+        self.convertNumberTwo = 0
+        
+        //Reset Total number input
+        self.totalInputNumbers = 0
+        
+        //Reset Answer Counter and Messages
+        self.correctAnswerCounter = 0
+        self.answerMsg = ""
+        self.playerScore = 0
+        self.playerBonus = 0
+        
+        //Reset Monitor number state
+        self.numberInputComplete = false
+        
+        //Reset pad click counter
+        self.playerClickCounter = 0
+        
+        //Reset operators
+        self.opratorSelectorMinu = false
+        self.operatorSelectorPlus = false
+        self.operatorSelectorMultiply = false
+        
+        //Reset Previous & Current Numbers
+        self.previousNumber = 0
+        self.currentNumber = 0
+        
+        //Reset Game play alerts
+        self.showBeginGameAlert = false
+        self.showPlayNumbersAlert = false
+        self.showOperatorSelectionAlert = false
+    
+        
+        //Reset play background music
+        self.playBackgroundMusic = true
+        
+        
+    }//End Reset game
     
 
 
@@ -617,7 +677,20 @@ struct Game: View {
                     Spacer().frame(height:50)
                     
                     //Button to Reset Game
-                    Button(action: {}) {
+                    Button(action: {
+                        
+                        self.showGameReset = true
+                        self.clickResetGame = true
+                        
+                        self.resetGame()
+                        
+                        //Change ClickResetGame back to false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            
+                            self.clickResetGame = false
+                        }
+                        
+                    }) {
                         
                         
                         Text("Game Reset")
@@ -625,6 +698,13 @@ struct Game: View {
                             .background(Color.black)
                             .foregroundColor(Color.white)
                              .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.white,lineWidth: 2))
+                        
+                            .alert(isPresented: $showGameReset) {
+                                
+                                Alert(title: Text("Reset Alert"), message: Text("Game is going to be reset"), dismissButton: .default(Text("OK"),action: {self.showGameReset = false}))
+                        }
+                        
+                           
                     }
                 }//End of VStack
             
