@@ -192,6 +192,7 @@ struct Game: View {
                 self.currentNumber = self.questionAnswer
                 
                 self.answerMsg = "Correct "
+                speakWord(word: "Correct")
                 self.correctAnswerCounter += 1
                 
             
@@ -201,6 +202,8 @@ struct Game: View {
                         
                         //Score Breakdown - Basic Score
                         self.playerScore += 50
+                        
+                        
                         
                         //Memorise the previous entry
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -235,6 +238,9 @@ struct Game: View {
                         
                         self.playerScore += 10
                         
+                        //Speak word
+                        speakWord(word: "You scored 10 from a possible 50. Try not to use the same operator together")
+                        
                     }
                     
                    
@@ -254,6 +260,7 @@ struct Game: View {
                 self.currentNumber = self.questionAnswer
                 
                 self.answerMsg = "Incorrect "
+                speakWord(word: "Incorrect")
                 
            
                 //Swap Numbers

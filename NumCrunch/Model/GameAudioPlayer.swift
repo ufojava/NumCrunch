@@ -71,5 +71,25 @@ func stopAudioPlay() {
 }
 
 
+//Synthersized Speech
+func speakWord(word:String) {
+    
+    
+    let utterWord = AVSpeechUtterance(string: word)
+        utterWord.voice = AVSpeechSynthesisVoice(language: "en-GB")
+        utterWord.rate = 0.5
+    
+    //Pass Speech
+    let synthersizer = AVSpeechSynthesizer()
+        synthersizer.speak(utterWord)
+    
+
+    
+    
+    
+}
+
+
+
 
 
