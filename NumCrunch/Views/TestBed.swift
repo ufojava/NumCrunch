@@ -14,10 +14,27 @@ import SwiftUI
 
 struct DisplayAlert:    View {
     
-    @State private var alertOne = false
-    @State private var alertTwo = false
+@State private var currentSign = ""
+@State private var previousSign = ""
+
+@State private var currentSignState = false
+@State private var previousSignState = false
     
-    @State private var alertThree = ""
+    
+    
+    func assignPrevious() -> String {
+        
+        var currentValue = ""
+        
+        if self.currentSignState {
+            
+            currentValue = self.currentSign
+            
+        }
+        
+        return currentValue
+    }
+    
     
     
     var body: some View {
@@ -26,34 +43,35 @@ struct DisplayAlert:    View {
             
         Text("Place Holder")
             
-            .onTapGesture {
-                self.alertOne = true
-                self.alertTwo = true
-                
-                self.alertThree = "Hello"
-                
-        }
-       
             
-            
-            
-            .alert(isPresented: $alertOne) {
-            
-            Alert(title: Text("Alert One"), message: Text("The First"), dismissButton: .default(Text("OK")))
-        }
-        
-           
-            //This section will project a differnt alert to the view
-         
-        
-            if self.alertTwo {
+            Button(action: {
+                
+                self.currentSignState = true
+                
+                if self.currentSignState {
+                    
+                    self.currentSign = "+"
+                }
                 
                 
-                Text("\(self.alertThree)")
+            }) {
                 
-                  
+                
+                Text("Update Me")
+                
                 
             }
+            
+      
+            Text("\(self.currentSign)")
+            /*
+            Need to run my analysis prior to the update
+            this can take the form of a bonus allocation 
+            */
+            Text("\(self.assignPrevious())")
+    
+         
+           
             
         }
         

@@ -45,7 +45,7 @@ struct Game: View {
     
     //Random answer, Numbers 1 and 2
     //@State private var questionAnswer = 0
-    @State private var questionAnswer = Int.random(in: 20...99)
+    @State private var questionAnswer = Int.random(in: 20...70)
     
     //Numbers 1 and 2 fields
     @State private var fieldOneNumberOne = ""
@@ -86,6 +86,10 @@ struct Game: View {
     @State private var operatorSelectorPlus = false
     @State private var operatorSelectorMultiply = false
     
+    //Operator Counter
+    @State private var operatorPrevious = ""
+   
+    
     //Number Input Pad
     @State private var numberPad = ["0","1","2","3","4","5","6","7","8","9"]
     
@@ -110,6 +114,7 @@ struct Game: View {
     //Reset game
     @State private var clickResetGame = false
    
+
     
     
     //Calculate total figure
@@ -133,6 +138,7 @@ struct Game: View {
         
         
         
+        
     }//End of convert
     
     
@@ -147,18 +153,23 @@ struct Game: View {
             
          
             self.totalInputNumbers = self.convertNumberOne - self.convertNumberTwo
-          
+            
+            
+            
             
         } else if self.operatorSelectorPlus {
             
    
             self.totalInputNumbers = self.convertNumberOne + self.convertNumberTwo
+            
+     
           
             
         } else if self.operatorSelectorMultiply {
             
           
             self.totalInputNumbers = self.convertNumberOne * self.convertNumberTwo
+            
            
             
             
@@ -184,29 +195,54 @@ struct Game: View {
                 self.correctAnswerCounter += 1
                 
             
-                //Player Scores
-                if (self.previousNumber - self.convertNumberOne) > 5 && (self.previousNumber - self.convertNumberTwo) > 5 {
-                    print(self.previousNumber)
                     
-                    //Score Breakdown - Basic Score
-                    self.playerScore += 50
+                    //Minus
+                    if opratorSelectorMinu && self.operatorPrevious != "-" {
+                        
+                        //Score Breakdown - Basic Score
+                        self.playerScore += 50
+                        
+                        //Memorise the previous entry
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            
+                            self.operatorPrevious = "-"
+                        }
+                        
+                        
+                      //Plus
+                    } else if operatorSelectorPlus && self.operatorPrevious != "+" {
+                        
+                        self.playerScore += 50
+                        
+                        //Memorise the previous entry
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            
+                            self.operatorPrevious = "+"
+                        }
+                        
+                    } else if operatorSelectorMultiply && self.operatorPrevious != "*" {
+                        
+                        self.playerScore += 50
+                        
+                        //Memorise the previous entry
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            
+                            self.operatorPrevious = "*"
+                        }
+                        
+                        
+                    } else {
+                        
+                        self.playerScore += 10
+                        
+                    }
                     
-                    //CREATE ANOTHER CONDITION 20 > 3
-                } else if (self.previousNumber - self.convertNumberOne) > 3 && (self.previousNumber - self.convertNumberTwo) > 3 {
-                    
-                    
-                    self.playerScore += 30
-                    
-                } else {
-                    
-                    self.playerScore += 10
-                }
+                   
                 
-                
-                
-              
+ 
+                            
             //Swap Numbers
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                     
                     self.previousNumber = self.currentNumber
                     
@@ -237,7 +273,7 @@ struct Game: View {
     func resetGame() {
         
         //Reset Random Number
-        self.questionAnswer = Int.random(in: 20...99)
+        self.questionAnswer = Int.random(in: 20...70)
         
         //Reset Digits 1 and 2
         self.fieldOneNumberOne = ""
@@ -285,6 +321,9 @@ struct Game: View {
         
         //Reset play background music
         self.playBackgroundMusic = true
+        
+        //Reset previous
+        self.operatorPrevious = ""
         
         
     }//End Reset game
@@ -559,7 +598,7 @@ struct Game: View {
                                 //Trigger random number after one second and store in current
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1 ) {
                                     
-                                    self.questionAnswer = Int.random(in: 20...99)
+                                    self.questionAnswer = Int.random(in: 20...70)
                                     self.currentNumber = self.questionAnswer
                                     print(self.currentNumber)
                                     
@@ -606,7 +645,7 @@ struct Game: View {
                                         self.fieldOneNumberTwo = ""
                                         self.fieldTwoNumberOne = ""
                                         self.fieldTwoNumberTwo = ""
-                                        self.questionAnswer = Int.random(in: 20...99)
+                                        self.questionAnswer = Int.random(in: 20...70)
                                         
                                         
                                         //Reset the Number Pick Counter
