@@ -15,13 +15,13 @@ struct CallGame: View {
     
     var body: some View {
         
-        NavigationView {
+        //NavigationView {
             
         
         Game()
-           
+        //DisplayAlert()
         
-        }
+        //}
         
     }
     
@@ -34,6 +34,7 @@ struct CallGame_Preview: PreviewProvider {
     
     static var previews: some View {
         CallGame()
+       
         
         
     }
@@ -113,6 +114,14 @@ struct Game: View {
     
     //Reset game
     @State private var clickResetGame = false
+    
+    //Set timer for game
+    @State private var timerStatus = false
+    @State private var timeMaxSeconds = 180
+    @State private var gameTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    
+    
    
 
     
@@ -239,8 +248,9 @@ struct Game: View {
                         self.playerScore += 10
                         
                         //Speak word
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2 ) {
                         speakWord(word: "You scored 10 from a possible 50. Try not to use the same operator together")
-                        
+                        }
                     }
                     
                    
@@ -261,6 +271,22 @@ struct Game: View {
                 
                 self.answerMsg = "Incorrect "
                 speakWord(word: "Incorrect")
+                
+                
+                //Update the operator
+                
+                if opratorSelectorMinu {
+                    
+                    self.operatorPrevious = "-"
+                    
+                } else if operatorSelectorPlus {
+                    
+                    self.operatorPrevious = "+"
+                    
+                } else if operatorSelectorMultiply {
+                    
+                    self.operatorPrevious = "*"
+                }
                 
            
                 //Swap Numbers
@@ -335,7 +361,7 @@ struct Game: View {
         
     }//End Reset game
     
-
+    
 
     
     
@@ -355,6 +381,17 @@ struct Game: View {
                     
                                
                                playAudioBackgroundMusic(soundFile: "FirstNumberBackground", type: "mp3")
+                    
+                    
+                        speakWord(word: "Memorise the answer before you Click begin.")
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                       
+                        speakWord(word: "The 3 minute counter will commence once the bgin button is clicked")
+                        
+                    }
+                            
+                            
                    
                 }
                 
@@ -597,6 +634,10 @@ struct Game: View {
                         
                         Button(action: {
                             
+                            self.timerStatus = true
+                            
+                        
+                            
                             if self.fieldOneNumberOne == "" && self.fieldOneNumberTwo == "" && self.fieldTwoNumberOne == "" && self.fieldTwoNumberTwo == "" {
                                 
                             self.previousNumber = self.questionAnswer
@@ -626,10 +667,28 @@ struct Game: View {
                                 .foregroundColor(Color.white)
                                 .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
                             
+                                
+                                
+                                .onReceive(gameTimer) { time in
+                                
+                                    if self.timerStatus {
+                                    self.timeMaxSeconds -= 1
+                                        
+                                    }
+                            }
+                                
+                                    
+                                
+                            
+                            
+                                
+                            
                         }//End of Begin Button
                     
                     
                             Button(action: {
+                                
+                                
                                 
                                 //Check if the Begin Game has been pressed
                                 if self.previousNumber == 0 {
@@ -689,7 +748,6 @@ struct Game: View {
                                 }
                             
                            
-                
                         
                     }
                     
@@ -734,7 +792,15 @@ struct Game: View {
                         Text("Timer:")
                             .frame(width:260,height: 30,alignment: .leading)
                             
-                        InTextField(inText: "Timer ")
+                
+                            
+                            InTextField(inText: "\(self.timeMaxSeconds) ")
+                                
+                                
+                                
+                                
+                            
+                            
                         }
                         
                     }.font(.custom("Coutier", size: 20))
@@ -951,3 +1017,4 @@ struct InTextField: View {
         
     }
 }
+

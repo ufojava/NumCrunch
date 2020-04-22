@@ -14,26 +14,17 @@ import SwiftUI
 
 struct DisplayAlert:    View {
     
-@State private var currentSign = ""
-@State private var previousSign = ""
 
-@State private var currentSignState = false
-@State private var previousSignState = false
+    
+    
+    //Set timer for game
+       @State private var timerStatus = false
+       @State private var timeMaxSeconds = 150
+       @State private var gameTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     
     
-    func assignPrevious() -> String {
-        
-        var currentValue = ""
-        
-        if self.currentSignState {
-            
-            currentValue = self.currentSign
-            
-        }
-        
-        return currentValue
-    }
+
     
     
     
@@ -41,34 +32,42 @@ struct DisplayAlert:    View {
         
         VStack {
             
-        Text("Place Holder")
-            
             
             Button(action: {
                 
-                self.currentSignState = true
-                
-                if self.currentSignState {
-                    
-                    self.currentSign = "+"
-                }
-                
+                self.timerStatus.toggle()
                 
             }) {
                 
                 
-                Text("Update Me")
+                Text("Start Timer")
                 
                 
             }
             
-      
-            Text("\(self.currentSign)")
-            /*
-            Need to run my analysis prior to the update
-            this can take the form of a bonus allocation 
-            */
-            Text("\(self.assignPrevious())")
+            
+            
+            
+        Text("Place Holder")
+            .onReceive(gameTimer) { time in
+                
+                if self.timerStatus  {
+                    
+                    self.timeMaxSeconds -= 1
+                    
+                } else {
+                
+                
+                    
+                    //self.gameTimer.upstream.connect().cancel()
+                    
+                }
+                
+            }
+            
+            Text("\(self.timeMaxSeconds)")
+            
+            
     
          
            
