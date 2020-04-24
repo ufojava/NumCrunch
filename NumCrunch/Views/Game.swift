@@ -361,6 +361,9 @@ struct Game: View {
         //Reset previous
         self.operatorPrevious = ""
         
+        //Reset show ten Second visual
+        self.showCountDownColorRed = false
+        
         
     }//End Reset game
     
