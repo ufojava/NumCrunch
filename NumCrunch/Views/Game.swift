@@ -120,6 +120,9 @@ struct Game: View {
     @State private var timeMaxSeconds = 180
     @State private var gameTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
+    //Change countdown time color
+    @State private var showCountDownColorRed = false
+    
     
     
    
@@ -387,7 +390,7 @@ struct Game: View {
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                        
-                        speakWord(word: "The 3 minute counter will commence once the bgin button is clicked")
+                        speakWord(word: "The 3 minute counter will commence once the begin button is clicked")
                         
                     }
                             
@@ -668,11 +671,28 @@ struct Game: View {
                                 .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.black,lineWidth: 2))
                             
                                 
-                                
+                                //Set the game timer
                                 .onReceive(gameTimer) { time in
                                 
-                                    if self.timerStatus {
+                                    if self.timerStatus && self.timeMaxSeconds > 0{
                                     self.timeMaxSeconds -= 1
+                                        
+                                        //Ten secound countdown
+                                        if self.timeMaxSeconds > 0 && self.timeMaxSeconds <= 10 {
+                                            
+                                            self.showCountDownColorRed = true
+                                            playAudioFile(soundFile: "TenSecondCountDown", type: "mp3")
+                                            
+                                            //Stop background music
+                                            stopAudioPlay()
+                                            
+                                        }
+                                        
+                                        //Stop countdown Audio
+                                        if self.timeMaxSeconds == 0 {
+                                            
+                                            stopMainAudioPlay()
+                                        }
                                         
                                     }
                             }
@@ -792,9 +812,15 @@ struct Game: View {
                         Text("Timer:")
                             .frame(width:260,height: 30,alignment: .leading)
                             
-                
                             
-                            InTextField(inText: "\(self.timeMaxSeconds) ")
+                            if showCountDownColorRed == false {
+                            
+                                InTextField(inText: "\(self.timeMaxSeconds) ")
+                            
+                            } else {
+                                
+                                InTextFieldRed(inText: "\(self.timeMaxSeconds) ")
+                            }
                                 
                                 
                                 
@@ -1011,6 +1037,25 @@ struct InTextField: View {
             .frame(width:100,height: 30,alignment: .trailing)
             .background(Color.green)
             .foregroundColor(Color.white)
+            .overlay(RoundedRectangle(cornerRadius: 3).stroke(Color.black,lineWidth: 2))
+        
+        
+        
+    }
+}
+
+//Display red color for countdown
+struct InTextFieldRed: View {
+    
+    var inText = ""
+    
+    
+    var body: some View {
+        
+        Text(inText)
+            .frame(width:100,height: 30,alignment: .trailing)
+            .background(Color.green)
+            .foregroundColor(Color.red)
             .overlay(RoundedRectangle(cornerRadius: 3).stroke(Color.black,lineWidth: 2))
         
         

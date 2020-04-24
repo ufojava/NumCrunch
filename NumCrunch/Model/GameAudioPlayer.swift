@@ -83,13 +83,15 @@ func speakWord(word:String) {
     let synthersizer = AVSpeechSynthesizer()
         synthersizer.speak(utterWord)
     
-
-    
-    
-    
 }
 
 
+//Function to stop audio file play
+func stopMainAudioPlay() {
+    
+    gameAudioPlayer?.stop()
+    
+}
 
 
 

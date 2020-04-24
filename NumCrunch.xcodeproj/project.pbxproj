@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0365F6D92452B438002B220E /* TenSecondCountDown.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0365F6D82452B438002B220E /* TenSecondCountDown.mp3 */; };
 		03773A19243F73FF00D228E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03773A18243F73FF00D228E9 /* AppDelegate.swift */; };
 		03773A1B243F73FF00D228E9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03773A1A243F73FF00D228E9 /* SceneDelegate.swift */; };
 		03773A1D243F73FF00D228E9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03773A1C243F73FF00D228E9 /* ContentView.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0365F6D82452B438002B220E /* TenSecondCountDown.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = TenSecondCountDown.mp3; sourceTree = "<group>"; };
 		03773A15243F73FF00D228E9 /* FirstNumber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirstNumber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03773A18243F73FF00D228E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03773A1A243F73FF00D228E9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				03AF58412448F2EC00F1F207 /* FirstNumberBackground.mp3 */,
+				0365F6D82452B438002B220E /* TenSecondCountDown.mp3 */,
 				03AF583D2448E63500F1F207 /* FirstNumberIntro.mp3 */,
 				03773A17243F73FF00D228E9 /* NumCrunch */,
 				03773A16243F73FF00D228E9 /* Products */,
@@ -169,6 +172,7 @@
 			files = (
 				03773A25243F740400D228E9 /* LaunchScreen.storyboard in Resources */,
 				03773A22243F740400D228E9 /* Preview Assets.xcassets in Resources */,
+				0365F6D92452B438002B220E /* TenSecondCountDown.mp3 in Resources */,
 				03773A1F243F740400D228E9 /* Assets.xcassets in Resources */,
 				03AF583E2448E63600F1F207 /* FirstNumberIntro.mp3 in Resources */,
 				03AF58422448F2ED00F1F207 /* FirstNumberBackground.mp3 in Resources */,
