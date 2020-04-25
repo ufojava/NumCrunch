@@ -945,6 +945,7 @@ struct InputModule: View {
                 Text(numberInputOne)
                     .frame(width:30,height: 30)
                     .background(Color.white)
+                    .foregroundColor(Color.blue)
                     .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.black,lineWidth: 2))
                     .disabled(numberInputOne.count > (characterLimit - 1))
                     
@@ -953,6 +954,7 @@ struct InputModule: View {
                 Text(numberInputTwo)
                     .frame(width:30,height: 30)
                     .background(Color.white)
+                    .foregroundColor(Color.blue)
                     .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.black,lineWidth: 2))
                     .disabled(numberInputTwo.count > (characterLimit - 1))
                 }
@@ -1010,6 +1012,7 @@ struct InputModuleAnswer: View {
                 Text(numberInput)
                     .frame(width:30,height: 30)
                     .background(Color.white)
+                    .foregroundColor(Color.blue)
                     .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.black,lineWidth: 2))
                     .disabled(numberInput.count > (characterLimit - 1))
                     
