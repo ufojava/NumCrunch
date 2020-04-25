@@ -364,6 +364,25 @@ struct Game: View {
         //Reset show ten Second visual
         self.showCountDownColorRed = false
         
+        //Reset background music
+        
+        if playBackgroundMusic {
+            stopAudioPlay()
+            
+        }
+            
+        //Start the background music
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                       
+                       playAudioBackgroundMusic(soundFile: "FirstNumberBackground", type: "mp3")
+                       
+            }
+        
+       
+        
+        
+        
+        
         
     }//End Reset game
     
@@ -402,8 +421,12 @@ struct Game: View {
                 }
                 
             .onDisappear() {
-                
+                            
+                            //Stop the Background Audio
                             stopAudioPlay()
+                
+                            //Stop the clock
+                            self.gameTimer.upstream.connect().cancel()
                 }
                 
                 VStack {
@@ -695,6 +718,13 @@ struct Game: View {
                                         if self.timeMaxSeconds == 0 {
                                             
                                             stopMainAudioPlay()
+                                            
+                                            speakWord(word: "Game Over")
+                                            
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                                
+                                                speakWord(word: "You scored \(self.playerScore) points")
+                                            }
                                         }
                                         
                                     }
