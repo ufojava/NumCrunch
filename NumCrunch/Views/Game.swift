@@ -378,13 +378,38 @@ struct Game: View {
                        
             }
         
-       
-        
-        
-        
-        
         
     }//End Reset game
+    
+    //Player bonus added at the end of the game
+    func addPlayerBonus(totalCorrectAnswer: Int) -> Int {
+        
+        var playerBonus = 0
+        
+        //50 Bonus points
+        if totalCorrectAnswer >= 5 && totalCorrectAnswer <= 9 {
+            
+            playerBonus = 50
+        
+            
+        //100 Bonus points
+        } else if totalCorrectAnswer >= 10 && totalCorrectAnswer <= 14 {
+            
+            playerBonus = 100
+            
+        } else if totalCorrectAnswer >= 15 {
+            
+            playerBonus = 300
+            
+        } else {
+            
+            playerBonus = 0
+        }
+        
+        
+        return playerBonus
+        
+    }
     
     
 
@@ -725,6 +750,21 @@ struct Game: View {
                                                 
                                                 speakWord(word: "You scored \(self.playerScore) points")
                                             }
+                                            
+                                            //Adding bonus score
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                                            //Add the bonus points
+                                                speakWord(word: "You got \(self.correctAnswerCounter) correct which gives you \(self.addPlayerBonus(totalCorrectAnswer: self.correctAnswerCounter)) bonus points")
+                                                
+                                                self.playerScore += self.addPlayerBonus(totalCorrectAnswer: self.correctAnswerCounter)
+                                            }
+                                            
+                                            //Final Score including bonus
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
+                                                
+                                                speakWord(word: "Your final score incuding any bonus \(self.playerScore)")
+                                            }
+                                            
                                         }
                                         
                                     }
